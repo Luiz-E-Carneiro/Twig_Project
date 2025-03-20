@@ -1,11 +1,32 @@
 {% extends '_base.html' %}
 
 {% block content %}
-  <h3> Página de Compras</h3>
-  
+  <h3>Página de Compras</h3>
+
+  <h3>Adicionar Item</h3>
+  <form action="compras_adc.php" method="post">
+    <input type="text" name="item" placeholder="Nome do Item" />
+
+    <input type="submit" value="Adicionar" />
+  </form>
+
+  <h3>Minha lista de compras</h3>
+
   <ul>
-  {% for compra in compras %}
-    <li>{{ compra.item }}</li>
-  {% endfor %}
+    {% for compra in compras %}
+      <li>
+        {{ compra.item }}
+        <form action="excluir_compra.php" method="post">
+          <input type="hidden" value="{{compra.id}}" name="id">
+          <button>X</button>
+        </form>
+        <form action="editar_compra.php" method="post">
+          <input type="hidden" value="{{compra.item}}" name="item">
+          <input type="hidden" value="{{compra.id}}" name="id">
+          <button>Editar</button>
+        </form>
+
+      </li>
+    {% endfor %}
   </ul>
 {% endblock %}
